@@ -8,5 +8,17 @@ namespace CareerSync.Controllers
         {
             return View();
         }
+        public IActionResult Error()
+        {
+            return View();
+        }
+        public IActionResult About()
+        {
+            return View();
+        }
+        public IActionResult FAQs()
+        {
+            return View();
+        }
     }
 }
