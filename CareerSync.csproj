@@ -6,4 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Hubs\" />
+    <Folder Include="Services\" />
+    <Folder Include="wwwroot\custom\" />
+    <Folder Include="wwwroot\media\" />
+  </ItemGroup>
+
 </Project>
