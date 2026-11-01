@@ -20,8 +20,80 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
+[T:/All files/Projects/CareerSync/CareerSync/Views/Account/AnswerSecurityQuestions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBbnN3ZXJTZWN1cml0eVF1ZXN0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Account/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDaGFuZ2VQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Account/EnterSmsCode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFbnRlclNtc0NvZGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Account/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Account/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Account/SecurityQuestions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTZWN1cml0eVF1ZXN0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Admin/AuditLogs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQXVkaXRMb2dzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Admin/EditGraduate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdEdyYWR1YXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Admin/GraduateDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR3JhZHVhdGVEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Admin/Graduates.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR3JhZHVhdGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Admin/MatchingAlgorithm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWF0Y2hpbmdBbGdvcml0aG0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Admin/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Admin/Reviews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmV2aWV3cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/Admin/SkillsDictionary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2tpbGxzRGljdGlvbmFyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [T:/All files/Projects/CareerSync/CareerSync/Views/AppUser/Analyze.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwVXNlclxBbmFseXplLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/All files/Projects/CareerSync/CareerSync/Views/AppUser/CvLibrary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwVXNlclxDdkxpYnJhcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [T:/All files/Projects/CareerSync/CareerSync/Views/AppUser/History.cshtml]
