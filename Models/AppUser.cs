@@ -1,6 +1,46 @@
-﻿namespace CareerSync.Models
+﻿using CareerSync.Models;
+using CareerSync.Models.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CareerSyncAI.Models;
+
+public class AppUser : IEntity
 {
-    public class AppUser
-    {
-    }
+    public int Id { get; set; }
+
+    public string FullName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string? PasswordHash { get; set; }
+    public UserRole Role { get; set; } = UserRole.Graduate;
+    public string? Qualification { get; set; }
+    public string? StudentNumber { get; set; }
+    public string? PhoneNumber { get; set; }
+    public string? LinkedInUrl { get; set; }
+    public string? Department { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsActive { get; set; } = true;
+
+    // Security questions — chosen at registration (or later from the
+    // account settings) and used to prove identity on ForgotPassword.
+    // Only the question text is stored in plain form; answers are
+    // salted PBKDF2 hashes (see SecurityAnswerHasher).
+    public string? SecurityQuestion1 { get; set; }
+    public string? SecurityAnswer1Hash { get; set; }
+    public string? SecurityQuestion2 { get; set; }
+    public string? SecurityAnswer2Hash { get; set; }
+
+    // Brute-force protection for the security-question step.
+    public int SecurityAnswerFailedAttempts { get; set; }
+    public DateTime? SecurityAnswerLockoutEndsAt { get; set; }
+
+    // Password reset — a short-lived, single-use token issued only AFTER
+    // both security questions are answered correctly, and consumed by
+    // ResetPassword.
+    public string? ResetToken { get; set; }
+    public DateTime? ResetTokenExpiresAt { get; set; }
+
+    [NotMapped]
+    public bool HasSecurityQuestions =>
+        !string.IsNullOrEmpty(SecurityQuestion1) && !string.IsNullOrEmpty(SecurityAnswer1Hash) &&
+        !string.IsNullOrEmpty(SecurityQuestion2) && !string.IsNullOrEmpty(SecurityAnswer2Hash);
 }

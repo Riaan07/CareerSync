@@ -1,6 +1,16 @@
-﻿namespace CareerSync.Models.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CareerSync.Models.ViewModels;
+
+public class LoginViewModel
 {
-    public class LoginViewModel
-    {
-    }
+    [Required, EmailAddress]
+    [Display(Name = "Email")]
+    public string Email { get; set; } = string.Empty;
+
+    [Required, DataType(DataType.Password)]
+    public string Password { get; set; } = string.Empty;
+
+    [Display(Name = "Keep me signed in")]
+    public bool RememberMe { get; set; }
 }

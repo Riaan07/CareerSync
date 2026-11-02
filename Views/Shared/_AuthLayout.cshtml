@@ -3,13 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] — CareerSync AI</title>
+    <title>@ViewData["Title"] — CareerSync</title>
     <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
 </head>
 <body>
     @{
-        // Pages with longer forms (Register) set ViewData["AuthVariant"] = "wide"
-        // to get a narrower brand panel and a two-column form card.
         var isWide = ViewData["AuthVariant"] as string == "wide";
     }
     <div class="auth-shell @(isWide ? "auth-shell-wide" : "")">

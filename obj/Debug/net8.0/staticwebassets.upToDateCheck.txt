@@ -1,4 +1,0 @@
-wwwroot\media\careersync-demo-poster.jpg
-wwwroot\media\careersync-demo.mp4
-wwwroot\media\careersync-demo.webm
-wwwroot\css\custom.css
