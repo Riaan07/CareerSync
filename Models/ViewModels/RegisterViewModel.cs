@@ -47,7 +47,7 @@ namespace CareerSync.Models.ViewModels
         public string SecurityAnswer2 { get; set; } = string.Empty;
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) =>
-            SecurityQuestionsValidation.Validate(
+            SecurityQuestionValidation.Validate(
                 SecurityQuestion1, nameof(SecurityQuestion1),
                 SecurityQuestion2, nameof(SecurityQuestion2));
     }
