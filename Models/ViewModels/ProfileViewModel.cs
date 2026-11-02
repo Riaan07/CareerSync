@@ -8,16 +8,13 @@ public class ProfileViewModel
     [Display(Name = "Full name")]
     public string FullName { get; set; } = string.Empty;
 
-    [Display(Name = "University email")]
+    [Display(Name = "Email")]
     public string Email { get; set; } = string.Empty; // read-only in the view
 
     [Required]
     [SmsPhoneNumber]
     [Display(Name = "Contact number")]
     public string PhoneNumber { get; set; } = string.Empty;
-
-    [Display(Name = "Student number")]
-    public string? StudentNumber { get; set; }
 
     [Display(Name = "Qualification")]
     public string? Qualification { get; set; }

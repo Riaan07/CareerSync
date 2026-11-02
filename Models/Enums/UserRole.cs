@@ -1,6 +1,8 @@
 ﻿namespace CareerSync.Models.Enums
 {
-    public class UserRole
+    public enum UserRole
     {
+        Graduate,
+        Admin
     }
 }

@@ -2,7 +2,7 @@
 using CareerSync.Models.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CareerSyncAI.Models;
+namespace CareerSync.Models;
 
 public class AppUser : IEntity
 {

@@ -1,6 +1,22 @@
-﻿namespace CareerSync.Models.ViewModels
+﻿using CareerSync.Services;
+using System.ComponentModel.DataAnnotations;
+
+namespace CareerSync.Models.ViewModels
 {
     public class SecurityQuestionsValidation
     {
+        public static IEnumerable<ValidationResult> Validate(
+        string? question1, string question1Field,
+        string? question2, string question2Field)
+        {
+            if (!string.IsNullOrEmpty(question1) && !SecurityQuestions.IsValid(question1))
+                yield return new ValidationResult("Choose a question from the list.", new[] { question1Field });
+
+            if (!string.IsNullOrEmpty(question2) && !SecurityQuestions.IsValid(question2))
+                yield return new ValidationResult("Choose a question from the list.", new[] { question2Field });
+
+            if (!string.IsNullOrEmpty(question1) && question1 == question2)
+                yield return new ValidationResult("Choose two different questions.", new[] { question2Field });
+        }
     }
 }

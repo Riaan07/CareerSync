@@ -1,6 +1,12 @@
-﻿namespace CareerSync.Data
+﻿using CareerSync.Models;
+
+namespace CareerSync.Data
 {
-    public class CVRepository
+    public class CVRepository : RepositoryBase<CV>, ICVRepository
     {
+        public CVRepository(CareerSyncDbContext context) : base(context) { }
+
+        public IReadOnlyList<CV> GetByAppUserId(int appUserId) =>
+            GetAll().Where(c => c.AppUserId == appUserId).OrderByDescending(c => c.UploadedAt).ToList();
     }
 }
