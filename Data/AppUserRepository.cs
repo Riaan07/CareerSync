@@ -1,5 +1,4 @@
-﻿using CareerSync.Data;
-using CareerSync.Models;
+﻿using CareerSync.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CareerSync.Data;

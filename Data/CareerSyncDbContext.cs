@@ -17,7 +17,7 @@ namespace CareerSync.Data
         public DbSet<MatchResult> MatchResults => Set<MatchResult>();
         public DbSet<LearningResource> LearningResources => Set<LearningResource>();
         public DbSet<SkillDictionaryTerm> SkillDictionaryTerms => Set<SkillDictionaryTerm>();
-        //public DbSet<AuditLogEntry> AuditLogEntries => Set<AuditLogEntry>();
+        public DbSet<AuditLogEntry> AuditLogEntries => Set<AuditLogEntry>();
         public DbSet<Message> Messages => Set<Message>();
         public DbSet<Review> Reviews => Set<Review>();
         public DbSet<MatchingWeights> MatchingWeights => Set<MatchingWeights>();

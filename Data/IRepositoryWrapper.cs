@@ -10,7 +10,7 @@ public interface IRepositoryWrapper
     //IMatchResultRepository MatchResult { get; }
     //ILearningResourceRepository LearningResource { get; }
     //ISkillDictionaryRepository SkillDictionary { get; }
-    //IAuditLogRepository AuditLog { get; }
+    IAuditLogRepository AuditLog { get; }
     //IMessageRepository Message { get; }
     //IReviewRepository Review { get; }
     //IMatchingWeightsRepository MatchingWeights { get; }
