@@ -1,8 +1,6 @@
 using CareerSync.Data;
+using CareerSync.Hubs;
 using CareerSync.Services;
-//using CareerSync.Hubs;
-using CareerSync.Services;
-using CareerSyncAI.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -17,9 +15,9 @@ builder.Services.AddDbContext<CareerSyncDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
-//builder.Services.AddScoped<IDocumentAnalysisService, DocumentAnalysisService>();
+builder.Services.AddScoped<IDocumentAnalysisService, DocumentAnalysisService>();
 //builder.Services.AddTransient<IAnalysisFeedbackEmailService, AnalysisFeedbackEmailService>();
-//builder.Services.AddSingleton<ICvTextExtractor, CvTextExtractor>();
+builder.Services.AddSingleton<ICvTextExtractor, CvTextExtractor>();
 builder.Services.AddMemoryCache();
 
 // SMS verification codes for password reset (Twilio Verify). Fill in the
@@ -95,6 +93,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-//app.MapHub<MessagingHub>("/hubs/messaging");
+app.MapHub<MessagingHub>("/hubs/messaging");
 
 app.Run();
