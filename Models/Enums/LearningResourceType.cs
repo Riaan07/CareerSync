@@ -1,6 +1,8 @@
 ﻿namespace CareerSync.Models.Enums
 {
-    public class LearningResourceType
+    public enum LearningResourceType
     {
+        Course,
+        Certification
     }
 }

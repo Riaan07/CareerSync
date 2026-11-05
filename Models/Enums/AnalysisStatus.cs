@@ -1,6 +1,9 @@
 ﻿namespace CareerSync.Models.Enums
 {
-    public class AnalysisStatus
+    public enum AnalysisStatus
     {
+        Pending,
+        Completed,
+        Failed
     }
 }

@@ -42,11 +42,11 @@ namespace CareerSync.Data
                     .Metadata.SetValueComparer(stringListComparer);
             }
 
-            //modelBuilder.Entity<CV>(e =>
-            //{
-            //    ConfigureStringList(e.Property(c => c.ExtractedSkills));
-            //    ConfigureStringList(e.Property(c => c.ExtractedQualifications));
-            //});
+            modelBuilder.Entity<CV>(e =>
+            {
+                ConfigureStringList(e.Property(c => c.ExtractedSkills));
+                ConfigureStringList(e.Property(c => c.ExtractedQualifications));
+            });
 
             //modelBuilder.Entity<JobDescription>(e =>
             //{
@@ -54,11 +54,11 @@ namespace CareerSync.Data
             //    ConfigureStringList(e.Property(j => j.RequiredQualifications));
             //});
 
-            //modelBuilder.Entity<MatchResult>(e =>
-            //{
-            //    ConfigureStringList(e.Property(m => m.MatchedSkills));
-            //    ConfigureStringList(e.Property(m => m.GapSkills));
-            //});
+            modelBuilder.Entity<MatchResult>(e =>
+            {
+                ConfigureStringList(e.Property(m => m.MatchedSkills));
+                ConfigureStringList(e.Property(m => m.GapSkills));
+            });
 
             //modelBuilder.Entity<JobPosting>(e =>
             //{

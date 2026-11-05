@@ -37,5 +37,6 @@ namespace CareerSync.Services
                 Encoding.ASCII.GetBytes(Hash(rawToken)),
                 Encoding.ASCII.GetBytes(storedHash));
         }
+
     }
 }

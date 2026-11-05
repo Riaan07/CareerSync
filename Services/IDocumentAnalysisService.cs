@@ -1,0 +1,10 @@
+﻿using CareerSync.Models;
+
+namespace CareerSync.Services
+{
+    public interface IDocumentAnalysisService
+    {
+        ExtractionResult ExtractTerms(string text);
+        MatchCalculationResult CalculateMatch(CV cv); //JobDescription jobDescription);
+    }
+}

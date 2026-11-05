@@ -4,6 +4,7 @@ using CareerSync.Models.Enums;
 using CareerSync.Models.ViewModels;
 using CareerSync.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -19,15 +20,10 @@ public class AccountController : Controller
     private readonly IMemoryCache _cache;
     private readonly ILogger<AccountController> _logger;
 
-    // SMS codes: at most one text per account per minute (stops someone using
-    // the form to spam a phone and burn Twilio credit), and at most 5 wrong
-    // codes per 10 minutes before the user has to request a new one.
     private static readonly TimeSpan SmsResendCooldown = TimeSpan.FromSeconds(60);
     private const int MaxSmsCodeAttempts = 5;
     private static readonly TimeSpan SmsAttemptWindow = TimeSpan.FromMinutes(10);
 
-    // Recovery hardening: after this many wrong answers the account's
-    // security-question step is locked for LockoutDuration.
     private const int MaxSecurityAnswerAttempts = 5;
     private static readonly TimeSpan LockoutDuration = TimeSpan.FromMinutes(15);
 
@@ -68,7 +64,6 @@ public class AccountController : Controller
             return View(model);
         }
 
-        // Transparently upgrade accounts still on the old unsalted SHA-256 hash.
         if (PasswordHasher.NeedsRehash(user.PasswordHash))
         {
             user.PasswordHash = PasswordHasher.Hash(model.Password);
@@ -84,8 +79,6 @@ public class AccountController : Controller
             Description = $"{user.FullName} signed in.",
         });
 
-        // Accounts created before security questions existed can't recover
-        // their password, so send them to set questions up straight away.
         if (!user.HasSecurityQuestions)
         {
             TempData["StatusMessage"] = "Please set up your security questions — you'll need them if you ever forget your password.";
@@ -162,12 +155,10 @@ public class AccountController : Controller
                 return View(model);
             }
 
-            // Same next page whether or not the account exists, so this form
-            // can't be used to find out which emails are registered.
             return RedirectToAction(nameof(EnterSmsCode), new { email = model.Email });
         }
 
-        // Security-questions route
+
         var user = _repository.AppUser.FindByEmail(model.Email);
         if (user is null || !user.IsActive || !user.HasSecurityQuestions)
         {
@@ -207,7 +198,6 @@ public class AccountController : Controller
         var user = _repository.AppUser.FindByEmail(model.Email.Trim());
         var phone = user is { IsActive: true } ? PhoneNumbers.ToE164(user.PhoneNumber) : null;
 
-        // Unknown account or no mobile number: treat exactly like a wrong code.
         var result = phone is null ? SmsCheckStatus.Incorrect : await _sms.CheckCodeAsync(phone, model.Code.Trim());
 
         if (result == SmsCheckStatus.Approved)
@@ -266,7 +256,7 @@ public class AccountController : Controller
             ? "Please wait a minute before asking for another code."
             : SmsSendError(outcome) ?? "If that email belongs to an account with a mobile number, a new code is on its way.";
         if (outcome != SmsSendOutcome.CoolingDown && SmsSendError(outcome) is null)
-            _cache.Remove("sms-attempts:" + email.Trim().ToLowerInvariant());   // fresh code, fresh attempts
+            _cache.Remove("sms-attempts:" + email.Trim().ToLowerInvariant());
 
         return RedirectToAction(nameof(EnterSmsCode), new { email = email.Trim() });
     }
@@ -297,7 +287,6 @@ public class AccountController : Controller
         if (user is null || !user.IsActive || !user.HasSecurityQuestions)
             return RedirectToAction(nameof(ForgotPassword));
 
-        // Never trust question text posted back from the browser.
         model.Question1 = user.SecurityQuestion1!;
         model.Question2 = user.SecurityQuestion2!;
 
@@ -309,8 +298,6 @@ public class AccountController : Controller
             return View(model);
         }
 
-        // Check both answers before deciding, and don't say which one was
-        // wrong — that would let someone guess them one at a time.
         var answer1Ok = SecurityAnswerHasher.Verify(model.Answer1, user.SecurityAnswer1Hash);
         var answer2Ok = SecurityAnswerHasher.Verify(model.Answer2, user.SecurityAnswer2Hash);
 
@@ -344,7 +331,6 @@ public class AccountController : Controller
             return View(model);
         }
 
-        // Both correct — issue a short-lived, single-use reset token.
         user.SecurityAnswerFailedAttempts = 0;
         user.SecurityAnswerLockoutEndsAt = null;
         var (rawToken, tokenHash) = PasswordResetTokens.Create();
@@ -360,6 +346,104 @@ public class AccountController : Controller
         });
 
         return RedirectToAction(nameof(ResetPassword), new { email = user.Email, token = rawToken });
+    }
+
+    [HttpGet]
+    public IActionResult ResetPassword(string email, string token)
+    {
+        var user = string.IsNullOrWhiteSpace(email) ? null : _repository.AppUser.FindByEmail(email);
+        if (!IsResetTokenValid(user, token))
+        {
+            TempData["StatusMessage"] = InvalidResetMessage;
+            return RedirectToAction(nameof(ForgotPassword));
+        }
+
+        return View(new ResetPasswordViewModel { Email = email, Token = token });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult ResetPassword(ResetPasswordViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        var user = _repository.AppUser.FindByEmail(model.Email);
+        if (!IsResetTokenValid(user, model.Token))
+        {
+            TempData["StatusMessage"] = InvalidResetMessage;
+            return RedirectToAction(nameof(ForgotPassword));
+        }
+
+        user!.PasswordHash = PasswordHasher.Hash(model.NewPassword);
+        user.ResetToken = null;
+        user.ResetTokenExpiresAt = null;
+        user.SecurityAnswerFailedAttempts = 0;
+        user.SecurityAnswerLockoutEndsAt = null;
+        _repository.AppUser.Update(user);
+
+        _repository.AuditLog.Add(new AuditLogEntry
+        {
+            UserId = user.Id,
+            ActionType = "ResetPassword",
+            Description = $"{user.FullName} reset their password (via SMS code or security questions).",
+        });
+
+        TempData["StatusMessage"] = "Password reset — sign in with your new password.";
+        return RedirectToAction("Login");
+    }
+
+    public IActionResult GoogleLogin()
+    {
+        TempData["StatusMessage"] = "Google sign-in isn't wired up yet — sign in with email for now.";
+        return RedirectToAction("Login");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Index", "Home");
+    }
+
+
+    [Authorize]
+    [HttpGet]
+    public IActionResult ChangePassword()
+    {
+        if (TempData["StatusMessage"] is string msg) ViewData["StatusMessage"] = msg;
+        return View(new ChangePasswordViewModel());
+    }
+
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult ChangePassword(ChangePasswordViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var user = _repository.AppUser.GetById(userId);
+        if (user is null) return RedirectToAction("Login");
+
+        if (user.PasswordHash is null || !PasswordHasher.Verify(model.CurrentPassword, user.PasswordHash))
+        {
+            ModelState.AddModelError(nameof(model.CurrentPassword), "Current password is incorrect.");
+            return View(model);
+        }
+
+        user.PasswordHash = PasswordHasher.Hash(model.NewPassword);
+        _repository.AppUser.Update(user);
+
+        _repository.AuditLog.Add(new AuditLogEntry
+        {
+            UserId = user.Id,
+            ActionType = "ChangePassword",
+            Description = $"{user.FullName} changed their password.",
+        });
+
+        TempData["StatusMessage"] = "Password updated.";
+        return RedirectToAction("ChangePassword");
     }
 
     [Authorize]
@@ -415,9 +499,6 @@ public class AccountController : Controller
 
     private enum SmsSendOutcome { Sent, NothingToSend, CoolingDown, InvalidNumber, TooManyRequests, Failed }
 
-    /// <summary>Texts a reset code to the mobile number on the account, if
-    /// there is one. Unknown emails and accounts without a usable mobile
-    /// number return NothingToSend, which the UI treats like Sent.</summary>
     private async Task<SmsSendOutcome> SendSmsCodeAsync(string email)
     {
         var user = _repository.AppUser.FindByEmail(email);
@@ -459,7 +540,6 @@ public class AccountController : Controller
         return SmsSendOutcome.Sent;
     }
 
-    /// <summary>The message to show the user when a code couldn't be sent, or null if it was.</summary>
     private static string? SmsSendError(SmsSendOutcome outcome) => outcome switch
     {
         SmsSendOutcome.InvalidNumber =>
@@ -468,7 +548,7 @@ public class AccountController : Controller
             "Too many codes have been sent to this number recently. Try again later, or answer your security questions instead.",
         SmsSendOutcome.Failed =>
             "We couldn't send a text right now. Please try again in a few minutes, or answer your security questions instead.",
-        _ => null,   // Sent, NothingToSend and CoolingDown all continue to the code page
+        _ => null,
     };
 
     private AppUser? GetSignedInUser()
@@ -499,6 +579,5 @@ public class AccountController : Controller
         && expires >= DateTime.UtcNow;
 
     private Task SignInUserAsync(AppUser user, bool rememberMe) =>
-       UserSignIn.SignInAsync(HttpContext, user, rememberMe);
+        UserSignIn.SignInAsync(HttpContext, user, rememberMe);
 }
-

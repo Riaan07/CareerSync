@@ -65,6 +65,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "PdfPig": {
+              "target": "Package",
+              "version": "[0.1.16, )"
             }
           },
           "imports": [

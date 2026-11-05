@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "f4eVIY1BUrE=",
+  "dgSpecHash": "/M9NayrzhJg=",
   "success": true,
   "projectFilePath": "T:\\All files\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj",
   "expectedPackageFiles": [
@@ -46,6 +46,7 @@
     "C:\\Users\\student\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\student\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\student\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\student\\.nuget\\packages\\pdfpig\\0.1.16\\pdfpig.0.1.16.nupkg.sha512",
     "C:\\Users\\student\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\student\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\student\\.nuget\\packages\\system.composition\\6.0.0\\system.composition.6.0.0.nupkg.sha512",

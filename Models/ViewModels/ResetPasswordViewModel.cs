@@ -1,6 +1,22 @@
-﻿namespace CareerSync.Models.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CareerSync.Models.ViewModels
 {
     public class ResetPasswordViewModel
     {
+        [Required]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        public string Token { get; set; } = string.Empty;
+
+        [Required, DataType(DataType.Password), MinLength(8, ErrorMessage = "Use at least 8 characters.")]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; } = string.Empty;
+
+        [Required, DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare(nameof(NewPassword), ErrorMessage = "Passwords don't match.")]
+        public string ConfirmNewPassword { get; set; } = string.Empty;
     }
 }
