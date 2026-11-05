@@ -13,7 +13,7 @@ namespace CareerSync.Data
         public DbSet<CV> CVs => Set<CV>();
         //public DbSet<JobPosting> JobPostings => Set<JobPosting>();
         //public DbSet<SavedJob> SavedJobs => Set<SavedJob>();
-        //public DbSet<JobDescription> JobDescriptions => Set<JobDescription>();
+        public DbSet<JobDescription> JobDescriptions => Set<JobDescription>();
         public DbSet<MatchResult> MatchResults => Set<MatchResult>();
         public DbSet<LearningResource> LearningResources => Set<LearningResource>();
         public DbSet<SkillDictionaryTerm> SkillDictionaryTerms => Set<SkillDictionaryTerm>();
@@ -48,11 +48,11 @@ namespace CareerSync.Data
                 ConfigureStringList(e.Property(c => c.ExtractedQualifications));
             });
 
-            //modelBuilder.Entity<JobDescription>(e =>
-            //{
-            //    ConfigureStringList(e.Property(j => j.RequiredSkills));
-            //    ConfigureStringList(e.Property(j => j.RequiredQualifications));
-            //});
+            modelBuilder.Entity<JobDescription>(e =>
+            {
+                ConfigureStringList(e.Property(j => j.RequiredSkills));
+                ConfigureStringList(e.Property(j => j.RequiredQualifications));
+            });
 
             modelBuilder.Entity<MatchResult>(e =>
             {

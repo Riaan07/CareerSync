@@ -1,10 +1,9 @@
-﻿using CareerSync.Data;
-using CareerSync.Models;
+﻿using CareerSync.Models;
 using CareerSync.Models.Enums;
 using CareerSync.Services;
 using Microsoft.AspNetCore.Identity;
 
-namespace CareerSyncAI.Data;
+namespace CareerSync.Data;
 
 
 public static class SeedIdentity

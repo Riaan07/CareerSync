@@ -1,5 +1,4 @@
 ﻿using CareerSync.Models;
-using CareerSyncAI.Data;
 
 namespace CareerSync.Data
 {
