@@ -8,7 +8,7 @@ public class RepositoryWrapper : IRepositoryWrapper
 
     private IAppUserRepository? _appUser;
     private ICVRepository? _cv;
-    //private IJobDescriptionRepository? _jobDescription;
+    private IJobDescriptionRepository? _jobDescription;
     private IMatchResultRepository? _matchResult;
     private ILearningResourceRepository? _learningResource;
     private ISkillDictionaryRepository? _skillDictionary;
@@ -24,7 +24,7 @@ public class RepositoryWrapper : IRepositoryWrapper
 
     public IAppUserRepository AppUser => _appUser ??= new AppUserRepository(_context);
     public ICVRepository CV => _cv ??= new CVRepository(_context);
-    //public IJobDescriptionRepository JobDescription => _jobDescription ??= new JobDescriptionRepository(_context);
+    public IJobDescriptionRepository JobDescription => _jobDescription ??= new JobDescriptionRepository(_context);
     public IMatchResultRepository MatchResult => _matchResult ??= new MatchResultRepository(_context);
     public ILearningResourceRepository LearningResource => _learningResource ??= new LearningResourceRepository(_context);
     public ISkillDictionaryRepository SkillDictionary => _skillDictionary ??= new SkillDictionaryRepository(_context);

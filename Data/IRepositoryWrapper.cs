@@ -6,7 +6,7 @@ public interface IRepositoryWrapper
 {
     IAppUserRepository AppUser { get; }
     ICVRepository CV { get; }
-    //IJobDescriptionRepository JobDescription { get; }
+    IJobDescriptionRepository JobDescription { get; }
     IMatchResultRepository MatchResult { get; }
     ILearningResourceRepository LearningResource { get; }
     ISkillDictionaryRepository SkillDictionary { get; }

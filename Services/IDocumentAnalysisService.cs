@@ -5,6 +5,6 @@ namespace CareerSync.Services
     public interface IDocumentAnalysisService
     {
         ExtractionResult ExtractTerms(string text);
-        MatchCalculationResult CalculateMatch(CV cv); //JobDescription jobDescription);
+        MatchCalculationResult CalculateMatch(CV cv, JobDescription jobDescription);
     }
 }
