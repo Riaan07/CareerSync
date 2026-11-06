@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CareerSync.Migrations
 {
     [DbContext(typeof(CareerSyncDbContext))]
-    [Migration("20261105202629_initialmigration")]
+    [Migration("20261105213139_initialmigration")]
     partial class initialmigration
     {
         /// <inheritdoc />
@@ -153,6 +153,40 @@ namespace CareerSync.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CVs");
+                });
+
+            modelBuilder.Entity("CareerSync.Models.JobDescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Company")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RawText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequiredQualifications")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequiredSkills")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobDescriptions");
                 });
 
             modelBuilder.Entity("CareerSync.Models.LearningResource", b =>

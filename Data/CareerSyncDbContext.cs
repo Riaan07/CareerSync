@@ -11,8 +11,8 @@ namespace CareerSync.Data
 
         public DbSet<AppUser> AppUsers => Set<AppUser>();
         public DbSet<CV> CVs => Set<CV>();
-        //public DbSet<JobPosting> JobPostings => Set<JobPosting>();
-        //public DbSet<SavedJob> SavedJobs => Set<SavedJob>();
+        public DbSet<JobPosting> JobPostings => Set<JobPosting>();
+        public DbSet<SavedJob> SavedJobs => Set<SavedJob>();
         public DbSet<JobDescription> JobDescriptions => Set<JobDescription>();
         public DbSet<MatchResult> MatchResults => Set<MatchResult>();
         public DbSet<LearningResource> LearningResources => Set<LearningResource>();
@@ -60,24 +60,24 @@ namespace CareerSync.Data
                 ConfigureStringList(e.Property(m => m.GapSkills));
             });
 
-            //modelBuilder.Entity<JobPosting>(e =>
-            //{
-            //    e.HasIndex(j => new { j.IsActive, j.PostedAt });
-            //    e.Property(j => j.Title).HasMaxLength(160).IsRequired();
-            //    e.Property(j => j.Company).HasMaxLength(160).IsRequired();
-            //    e.Property(j => j.Location).HasMaxLength(120);
-            //    e.Property(j => j.EmploymentType).HasMaxLength(80);
-            //    e.Property(j => j.ApplicationUrl).HasMaxLength(1500);
-            //});
+            modelBuilder.Entity<JobPosting>(e =>
+            {
+                e.HasIndex(j => new { j.IsActive, j.PostedAt });
+                e.Property(j => j.Title).HasMaxLength(160).IsRequired();
+                e.Property(j => j.Company).HasMaxLength(160).IsRequired();
+                e.Property(j => j.Location).HasMaxLength(120);
+                e.Property(j => j.EmploymentType).HasMaxLength(80);
+                e.Property(j => j.ApplicationUrl).HasMaxLength(1500);
+            });
 
-            //modelBuilder.Entity<SavedJob>(e =>
-            //{
-            //    e.HasIndex(s => new { s.AppUserId, s.JobPostingId }).IsUnique();
-            //    e.HasOne<AppUser>().WithMany().HasForeignKey(s => s.AppUserId).OnDelete(DeleteBehavior.Cascade);
-            //    e.HasOne<JobPosting>().WithMany().HasForeignKey(s => s.JobPostingId).OnDelete(DeleteBehavior.Cascade);
-            //    e.Property(s => s.ApplicationStatus).HasMaxLength(25).IsRequired();
-            //    e.Property(s => s.Notes).HasMaxLength(1000);
-            //});
+            modelBuilder.Entity<SavedJob>(e =>
+            {
+                e.HasIndex(s => new { s.AppUserId, s.JobPostingId }).IsUnique();
+                e.HasOne<AppUser>().WithMany().HasForeignKey(s => s.AppUserId).OnDelete(DeleteBehavior.Cascade);
+                e.HasOne<JobPosting>().WithMany().HasForeignKey(s => s.JobPostingId).OnDelete(DeleteBehavior.Cascade);
+                e.Property(s => s.ApplicationStatus).HasMaxLength(25).IsRequired();
+                e.Property(s => s.Notes).HasMaxLength(1000);
+            });
             // A graduate/admin's email is how they sign in — must be unique.
             modelBuilder.Entity<AppUser>().HasIndex(u => u.Email).IsUnique();
         }

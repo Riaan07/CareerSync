@@ -77,6 +77,25 @@ namespace CareerSync.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "JobDescriptions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppUserId = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Company = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RawText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequiredSkills = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequiredQualifications = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubmittedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobDescriptions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LearningResources",
                 columns: table => new
                 {
@@ -200,6 +219,9 @@ namespace CareerSync.Migrations
 
             migrationBuilder.DropTable(
                 name: "CVs");
+
+            migrationBuilder.DropTable(
+                name: "JobDescriptions");
 
             migrationBuilder.DropTable(
                 name: "LearningResources");
