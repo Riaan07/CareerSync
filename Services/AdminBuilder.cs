@@ -6,18 +6,12 @@ namespace CareerSync.Services
 {
     public interface IAdminReportBuilder
     {
-        /// <summary>Builds the admin report as an Excel workbook. Dates are local, inclusive; null = no limit.</summary>
         byte[] Build(DateTime? from, DateTime? to, string generatedBy);
     }
 
-    /// <summary>
-    /// The Excel report Admin downloads from Admin → Reports. Five sheets:
-    /// Summary, Graduates, Analyses, Skill gaps and Reviews.
-    /// The Graduates sheet is all-time; the other sheets cover the chosen period.
-    /// </summary>
     public class AdminReportBuilder : IAdminReportBuilder
     {
-        public const int ReadyToApplyScore = 65;   // same threshold as the Admin dashboard
+        public const int ReadyToApplyScore = 65; 
 
         private readonly IRepositoryWrapper _repository;
 

@@ -16,7 +16,7 @@ builder.Services.AddDbContext<CareerSyncDbContext>(options =>
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
 builder.Services.AddScoped<IDocumentAnalysisService, DocumentAnalysisService>();
-//builder.Services.AddTransient<IAnalysisFeedbackEmailService, AnalysisFeedbackEmailService>();
+builder.Services.AddTransient<IAnalysisFeedbackEmailService, AnalysisFeedbackEmailService>();
 builder.Services.AddSingleton<ICvTextExtractor, CvTextExtractor>();
 builder.Services.AddMemoryCache();
 

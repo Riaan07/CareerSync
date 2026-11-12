@@ -80,6 +80,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[T:/Projects/CareerSync/CareerSync/Views/Admin/Reports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVwb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [T:/Projects/CareerSync/CareerSync/Views/Admin/Reviews.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmV2aWV3cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -124,6 +128,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwVXNlclxSZXZpZXdzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[T:/Projects/CareerSync/CareerSync/Views/CareerTools/Compare.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyZWVyVG9vbHNcQ29tcGFyZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[T:/Projects/CareerSync/CareerSync/Views/CareerTools/SavedJobs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyZWVyVG9vbHNcU2F2ZWRKb2JzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [T:/Projects/CareerSync/CareerSync/Views/Home/About.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -140,16 +152,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[T:/Projects/CareerSync/CareerSync/Views/Job Board/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iIEJvYXJkXEVkaXQuY3NodG1s
+[T:/Projects/CareerSync/CareerSync/Views/JobBoard/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iQm9hcmRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[T:/Projects/CareerSync/CareerSync/Views/Job Board/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iIEJvYXJkXEluZGV4LmNzaHRtbA==
+[T:/Projects/CareerSync/CareerSync/Views/JobBoard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iQm9hcmRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[T:/Projects/CareerSync/CareerSync/Views/Job Board/Manage.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iIEJvYXJkXE1hbmFnZS5jc2h0bWw=
+[T:/Projects/CareerSync/CareerSync/Views/JobBoard/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iQm9hcmRcTWFuYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [T:/Projects/CareerSync/CareerSync/Views/Shared/_AdminLayout.cshtml]

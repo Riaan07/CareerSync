@@ -16,11 +16,9 @@ public static class SeedIdentity
     public const string GraduateEmail = "2018287165@ufs4life.ac.za";
     public const string GraduatePassword = "Graduate123!";
 
-    // Every demo account gets the same security questions so password
-    // recovery can be demonstrated with any of them.
-    public static readonly string DemoQuestion1 = SecurityQuestions.All[1]; // city/town born
+    public static readonly string DemoQuestion1 = SecurityQuestions.All[1]; 
     public const string DemoAnswer1 = "Witbank";
-    public static readonly string DemoQuestion2 = SecurityQuestions.All[0]; // first pet
+    public static readonly string DemoQuestion2 = SecurityQuestions.All[0]; 
     public const string DemoAnswer2 = "Rex";
 
 
@@ -54,7 +52,6 @@ public static class SeedIdentity
             }));
         }
 
-        // Back-fill demo accounts that were seeded before security questions existed.
         foreach (var user in repository.AppUser.GetAll().Where(u => !u.HasSecurityQuestions).ToList())
         {
             if (!IsDemoAccount(user.Email)) continue;

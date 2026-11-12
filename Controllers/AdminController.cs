@@ -639,4 +639,36 @@ public class AdminController : Controller
             model.LastUpdatedBy = current.UpdatedByAdminId is int id ? _repository.AppUser.GetById(id)?.FullName : null;
         }
     }
+
+    [HttpGet]
+    public IActionResult Reports()
+    {
+        if (TempData["StatusMessage"] is string msg) ViewData["StatusMessage"] = msg;
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult DownloadReport(DateTime? from, DateTime? to, [FromServices] IAdminReportBuilder reports)
+    {
+        if (from is DateTime f && to is DateTime t && f.Date > t.Date)
+        {
+            TempData["StatusMessage"] = "The \"From\" date must be on or before the \"To\" date.";
+            return RedirectToAction(nameof(Reports));
+        }
+
+        var adminName = User.FindFirstValue(ClaimTypes.Name) ?? "Admin";
+        var bytes = reports.Build(from, to, adminName);
+
+        _repository.AuditLog.Add(new AuditLogEntry
+        {
+            UserId = CurrentUserId(),
+            ActionType = "DownloadReport",
+            Description = $"Downloaded the Excel report ({(from is null && to is null ? "all time" : $"{from:yyyy-MM-dd} to {to:yyyy-MM-dd}")}).",
+        });
+
+        var fileName = $"CareerSyncAI_Report_{DateTime.Now:yyyy-MM-dd_HHmm}.xlsx";
+        return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+    }
 }
+
+

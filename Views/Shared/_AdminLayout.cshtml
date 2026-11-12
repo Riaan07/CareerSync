@@ -34,11 +34,10 @@
                     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10" /></svg>
                     Skills dictionary
                 </a>
-                <a class="side-link @(ViewData["Active"] as string == "JobPostings" ? "active" : "")" asp-controller="Admin" asp-action="JobPostings">
+                <a class="side-link @(ViewData["Active"] as string == "JobBoard" ? "active" : "")" asp-controller="JobBoard" asp-action="Manage">
                     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6M8 13h8M8 17h5" /></svg>
                     Job postings
                 </a>
-
                 <a class="side-link @(ViewData["Active"] as string == "MatchingAlgorithm" ? "active" : "")" asp-controller="Admin" asp-action="MatchingAlgorithm">
                     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" /></svg>
                     Matching algorithm

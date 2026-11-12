@@ -1,0 +1,37 @@
+﻿@model List<CareerSync.Controllers.SavedJobRow>
+@{
+    ViewData["Title"] = "Saved jobs & applications"; ViewData["PageTitle"] = "Saved jobs & applications"; ViewData["Active"] = "SavedJobs"; Layout = "_AppUserLayout";
+}
+@if (ViewData["StatusMessage"] is string message)
+{
+    <div class="status-banner">@message</div>
+}
+<div class="card" style="padding:24px">
+    <h3>My job applications</h3><p>Bookmark jobs from Job Opportunities, then track your progress here.</p>
+    @if (!Model.Any())
+    {
+        <p>No saved jobs yet. <a asp-controller="JobBoard" asp-action="Index">Browse jobs</a>.</p>
+    }
+    @foreach (var row in Model)
+    {
+        <div style="border-bottom:1px solid #ddd;padding:18px 0">
+            <h4>@row.Job.Title — @row.Job.Company</h4>
+            <p>@row.Job.Location · Saved @row.Saved.SavedAt.ToString("dd MMM yyyy")</p>
+            @if (!string.IsNullOrWhiteSpace(row.Job.ApplicationUrl))
+            {
+                <a href="@row.Job.ApplicationUrl" target="_blank" rel="noopener noreferrer">Apply at employer website</a>
+            }
+            <form asp-action="UpdateApplication" method="post" style="margin-top:12px">
+                <input type="hidden" name="id" value="@row.Saved.Id" />
+                <label>Application status</label><select name="status">@foreach(var status in new[]{"Saved","Applied","Interview","Offer","Rejected","Withdrawn"}){
+                <option value="@status" selected="@(row.Saved.ApplicationStatus == status)">@status</option>
+            }
+</select>
+            <label>Private notes</label><textarea name="notes" maxlength="1000" rows="2">@row.Saved.Notes</textarea>
+            <button class="btn btn-primary" type="submit">Update status</button>
+        </form>
+        <form asp-action="RemoveSavedJob" method="post" style="margin-top:8px"><input type="hidden" name="id" value="@row.Saved.Id" /><button class="btn" type="submit" onclick="return confirm('Remove this job from your list?')">Remove saved job</button></form>
+    </div>
+        }
+</div>
+

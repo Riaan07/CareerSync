@@ -1,0 +1,56 @@
+﻿@model CareerSync.Controllers.CvComparisonPage
+@{
+    ViewData["Title"] = "Compare CVs"; ViewData["PageTitle"] = "CV comparison & progress"; ViewData["Active"] = "Compare"; Layout = "_AppUserLayout";
+}
+<div class="card" style="padding:24px">
+    <h3>Compare two CVs against the same job</h3><p>Scores are calculated with the current algorithm and weights. This preview does not create a saved analysis.</p>
+    <div asp-validation-summary="All"></div><form asp-action="Compare" method="get">
+        <label>Job posting</label><select name="jobPostingId" required><option value="">Choose job</option>@foreach(var j in Model.Jobs){
+        <option value="@j.Id" selected="@(j.Id == Model.JobPostingId)">@j.Title — @j.Company</option>
+                }
+</select>
+        <label>First CV</label><select name="firstCvId" required><option value="">Choose first CV</option>@foreach(var cv in Model.Cvs){
+        <option value="@cv.Id" selected="@(cv.Id == Model.FirstCvId)">@cv.FileName</option>
+                }
+</select>
+        <label>Second CV</label><select name="secondCvId" required><option value="">Choose second CV</option>@foreach(var cv in Model.Cvs){
+        <option value="@cv.Id" selected="@(cv.Id == Model.SecondCvId)">@cv.FileName</option>
+                }
+</select>
+        <button class="btn btn-primary" type="submit">Compare CVs</button>
+    </form>
+</div>
+@if (Model.First != null && Model.Second != null)
+{
+    <div class="card" style="padding:24px;margin-top:18px">
+        <h3>Side-by-side results</h3>
+        <table style="width:100%;text-align:left;border-collapse:collapse">
+            <thead><tr><th>Metric</th><th>@Model.FirstName</th><th>@Model.SecondName</th></tr></thead>
+            <tbody>
+                <tr><td>Overall</td><td>@Model.First.OverallScore%</td><td>@Model.Second.OverallScore%</td></tr>
+                <tr><td>Technical skills</td><td>@Model.First.TechnicalSkillsScore%</td><td>@Model.Second.TechnicalSkillsScore%</td></tr>
+                <tr><td>Experience</td><td>@Model.First.ExperienceScore%</td><td>@Model.Second.ExperienceScore%</td></tr>
+                <tr><td>Qualifications</td><td>@Model.First.QualificationsScore%</td><td>@Model.Second.QualificationsScore%</td></tr>
+                <tr><td>Matched skills</td><td>@string.Join(", ", Model.First.MatchedSkills)</td><td>@string.Join(", ", Model.Second.MatchedSkills)</td></tr>
+                <tr><td>Skills to improve</td><td>@string.Join(", ", Model.First.GapSkills)</td><td>@string.Join(", ", Model.Second.GapSkills)</td></tr>
+            </tbody>
+        </table><p><strong>Overall score difference:</strong> @Math.Abs(Model.First.OverallScore - Model.Second.OverallScore) percentage points.</p>
+        <p>Comparisons help explain how the detected CV content affects the weighted score; they do not predict hiring decisions.</p>
+    </div>
+    <div class="card" style="padding:24px;margin-top:18px">
+        <h3>Previous recorded results for these CVs and this job</h3>
+        @if (!Model.PriorResults.Any())
+        {
+            <p>No saved match history for this posting and these CVs yet. Run a match from Job Opportunities to start tracking progress.</p>
+        }
+        else
+        {
+
+            <table style="width:100%"><thead><tr><th>CV</th><th>Date</th><th>Overall score</th><th>Skill gaps</th></tr></thead><tbody>@foreach(var result in Model.PriorResults){
+            <tr><td>@Model.Cvs.First(c => c.Id == result.CVId).FileName</td><td>@result.GeneratedAt.ToString("dd MMM yyyy")</td><td>@result.OverallScore%</td><td>@result.GapSkills.Count</td></tr>
+        }
+    </tbody></table>
+    }
+</div>
+}
+
