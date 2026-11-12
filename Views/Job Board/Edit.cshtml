@@ -1,0 +1,19 @@
+﻿@model CareerSync.Models.JobPosting
+@{
+    ViewData["Title"] = Model.Id == 0 ? "Add Job Posting" : "Edit Job Posting"; ViewData["PageTitle"] = ViewData["Title"]; ViewData["Active"] = "JobBoard"; Layout = "_AdminLayout";
+}
+<div class="card" style="padding:24px;">
+    <h3>@ViewData["Title"]</h3><form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" /><div asp-validation-summary="All" class="text-danger"></div>
+        <div class="field"><label asp-for="Title"></label><input asp-for="Title" required /></div>
+        <div class="field"><label asp-for="Company"></label><input asp-for="Company" required /></div>
+        <div class="field"><label asp-for="Location"></label><input asp-for="Location" /></div>
+        <div class="field"><label asp-for="EmploymentType">Employment type</label><input asp-for="EmploymentType" placeholder="Internship / Full-time" /></div>
+        <div class="field"><label asp-for="Description"></label><textarea asp-for="Description" rows="10" required minlength="30"></textarea></div>
+        <div class="field"><label asp-for="ApplicationUrl">Application link (optional)</label><input asp-for="ApplicationUrl" type="url" /></div>
+        <div class="field"><label asp-for="ClosingDate">Closing date (optional)</label><input asp-for="ClosingDate" type="date" /></div>
+        <div class="field"><label><input asp-for="IsActive" /> Active and visible to graduates</label></div>
+        <button class="btn btn-primary" type="submit">Save Job</button> <a asp-action="Manage">Cancel</a>
+    </form>
+</div>
+

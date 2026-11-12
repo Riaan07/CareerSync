@@ -1,0 +1,54 @@
+﻿@model CareerSync.Models.ViewModels.JobBoardMatchViewModel
+@{
+    ViewData["Title"] = "Job Opportunities"; ViewData["PageTitle"] = "Job Opportunities"; ViewData["Active"] = "JobBoard"; Layout = "_AppUserLayout";
+}
+@if (ViewData["StatusMessage"] is string status)
+{
+    <div class="status-banner">@status</div>
+}
+<div class="card" style="padding:24px;">
+    <h3>Match a saved CV with a job</h3>
+    @if (!Model.Cvs.Any())
+    {
+        <p>You need a saved CV first. <a asp-controller="AppUser" asp-action="CvLibrary">Add a CV</a>.</p>
+    }
+    else if (!Model.Jobs.Any())
+    {
+
+        <p>There are currently no active job postings. You can still <a asp-controller="AppUser" asp-action="Analyze">paste a job description</a>.</p>
+    }
+    else
+    {
+        <form asp-action="Match" asp-controller="JobBoard" method="post">
+            <div class="field"><label>Choose your CV</label><select name="cvId" required><option value="">Select CV</option>@foreach (var cv in Model.Cvs) {
+            <option value="@cv.Id">@cv.FileName (@cv.UploadedAt.ToString("dd MMM yyyy"))</option>
+        }
+</select></div>
+        <div class="field"><label>Choose a job posting</label><select name="jobPostingId" required><option value="">Select job</option>@foreach (var job in Model.Jobs) {
+        <option value="@job.Id">@job.Title — @job.Company</option>
+                }
+</select></div>
+        <button class="btn btn-primary" type="submit">Run Match Analysis</button>
+    </form>
+        }
+</div>
+<div class="card" style="padding:24px;margin-top:20px;">
+    <h3>Available opportunities</h3>
+    @foreach (var job in Model.Jobs)
+    {
+        <div style="border-bottom:1px solid #ddd;padding:15px 0;">
+            <h4>@job.Title — @job.Company</h4>
+            <div class="meta">@job.Location · @job.EmploymentType @if (job.ClosingDate.HasValue) {
+            <span> · Closes @job.ClosingDate.Value.ToString("dd MMM yyyy")</span>
+        }
+</div>
+        <p style="white-space:pre-wrap">@job.Description</p>
+        <form asp-controller="CareerTools" asp-action="SaveJob" method="post" style="margin:10px 0"><input type="hidden" name="jobPostingId" value="@job.Id" /><button class="btn" type="submit">Save job / track application</button></form>
+        @if (!string.IsNullOrEmpty(job.ApplicationUrl))
+        {
+            <a href="@job.ApplicationUrl" target="_blank" rel="noopener noreferrer">External application link</a>
+        }
+    </div>
+        }
+</div>
+

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "T:\\All files\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj": {}
+    "T:\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj": {}
   },
   "projects": {
-    "T:\\All files\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj": {
+    "T:\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "T:\\All files\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj",
+        "projectUniqueName": "T:\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj",
         "projectName": "CareerSync",
-        "projectPath": "T:\\All files\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj",
+        "projectPath": "T:\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj",
         "packagesPath": "C:\\Users\\student\\.nuget\\packages\\",
-        "outputPath": "T:\\All files\\Projects\\CareerSync\\CareerSync\\obj\\",
+        "outputPath": "T:\\Projects\\CareerSync\\CareerSync\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

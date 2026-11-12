@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/M9NayrzhJg=",
+  "dgSpecHash": "CsypUTFDXK8=",
   "success": true,
-  "projectFilePath": "T:\\All files\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj",
+  "projectFilePath": "T:\\Projects\\CareerSync\\CareerSync\\CareerSync.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\student\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\student\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

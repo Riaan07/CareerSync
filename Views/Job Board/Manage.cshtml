@@ -1,0 +1,23 @@
+﻿@model List<CareerSync.Models.JobPosting>
+@{
+    ViewData["Title"] = "Manage Job Postings"; ViewData["PageTitle"] = "Manage Job Postings"; ViewData["Active"] = "JobBoard"; Layout = "_AdminLayout";
+}
+@if (ViewData["StatusMessage"] is string message)
+{
+    <div class="status-banner">@message</div>
+}
+<div class="card" style="padding:24px;">
+    <h3>Job postings</h3><p><a class="btn btn-primary" asp-action="Edit">Add job posting</a></p>
+    @foreach (var job in Model)
+    {
+        <div style="border-bottom:1px solid #ddd;padding:14px 0;">
+            <strong>@job.Title — @job.Company</strong> (@(job.IsActive ? "Active" : "Inactive"))
+            <a class="btn btn-sm" asp-action="Edit" asp-route-id="@job.Id">Edit</a>
+            @if (job.IsActive)
+            {
+                <form asp-action="Deactivate" method="post" style="display:inline"><input type="hidden" name="id" value="@job.Id" /><button class="btn btn-sm" type="submit">Deactivate</button></form>
+            }
+        </div>
+    }
+</div>
+
