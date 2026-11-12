@@ -96,6 +96,28 @@ namespace CareerSync.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "JobPostings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
+                    Company = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
+                    EmploymentType = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    ApplicationUrl = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: true),
+                    PostedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ClosingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedByAdminId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobPostings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LearningResources",
                 columns: table => new
                 {
@@ -137,6 +159,7 @@ namespace CareerSync.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CVId = table.Column<int>(type: "int", nullable: false),
+                    JobPostingId = table.Column<int>(type: "int", nullable: false),
                     JobDescriptionId = table.Column<int>(type: "int", nullable: false),
                     OverallScore = table.Column<int>(type: "int", nullable: false),
                     TechnicalSkillsScore = table.Column<int>(type: "int", nullable: false),
@@ -200,20 +223,63 @@ namespace CareerSync.Migrations
                     table.PrimaryKey("PK_SkillDictionaryTerms", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SavedJobs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppUserId = table.Column<int>(type: "int", nullable: false),
+                    JobPostingId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationStatus = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    SavedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AppliedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SavedJobs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SavedJobs_AppUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SavedJobs_JobPostings_JobPostingId",
+                        column: x => x.JobPostingId,
+                        principalTable: "JobPostings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AppUsers_Email",
                 table: "AppUsers",
                 column: "Email",
                 unique: true,
                 filter: "[Email] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobPostings_IsActive_PostedAt",
+                table: "JobPostings",
+                columns: new[] { "IsActive", "PostedAt" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SavedJobs_AppUserId_JobPostingId",
+                table: "SavedJobs",
+                columns: new[] { "AppUserId", "JobPostingId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SavedJobs_JobPostingId",
+                table: "SavedJobs",
+                column: "JobPostingId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AppUsers");
-
             migrationBuilder.DropTable(
                 name: "AuditLogEntries");
 
@@ -239,7 +305,16 @@ namespace CareerSync.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
+                name: "SavedJobs");
+
+            migrationBuilder.DropTable(
                 name: "SkillDictionaryTerms");
+
+            migrationBuilder.DropTable(
+                name: "AppUsers");
+
+            migrationBuilder.DropTable(
+                name: "JobPostings");
         }
     }
 }

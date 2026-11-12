@@ -2,7 +2,7 @@
 @using CareerSync.Services
 @{
     ViewData["Title"] = "Create account";
-    ViewData["AuthVariant"] = "wide";   // two-column card — see _AuthLayout / custom.css
+    ViewData["AuthVariant"] = "wide";   
     Layout = "_AuthLayout";
     var questions = new SelectList(SecurityQuestions.All);
 }
@@ -16,12 +16,12 @@
     <div class="field-grid">
         <div class="field">
             <label asp-for="FullName"></label>
-            <input asp-for="FullName" type="text" autocomplete="name" placeholder="" />
+            <input asp-for="FullName" type="text" autocomplete="name" placeholder="Sbahle Dlamini" />
             <span asp-validation-for="FullName" class="hint" style="color:var(--coral);"></span>
         </div>
         <div class="field">
             <label asp-for="Email"></label>
-            <input asp-for="Email" type="email" autocomplete="email" placeholder="" />
+            <input asp-for="Email" type="email" autocomplete="email" placeholder="name@ufs4life.ac.za" />
             <span asp-validation-for="Email" class="hint" style="color:var(--coral);"></span>
         </div>
     </div>
@@ -30,12 +30,12 @@
     <div class="field-grid">
         <div class="field">
             <label asp-for="PhoneNumber"></label>
-            <input asp-for="PhoneNumber" type="tel" autocomplete="tel" placeholder="" title="We'll text a code to this number if you ever forget your password." />
+            <input asp-for="PhoneNumber" type="tel" autocomplete="tel" placeholder="082 123 4567" title="We'll text a code to this number if you ever forget your password." />
             <span asp-validation-for="PhoneNumber" class="hint" style="color:var(--coral);"></span>
         </div>
         <div class="field">
             <label asp-for="Qualification"></label>
-            <input asp-for="Qualification" type="text" placeholder="" />
+            <input asp-for="Qualification" type="text" placeholder="BSc Computer Science" />
         </div>
     </div>
 
@@ -92,4 +92,3 @@
     <button type="submit" class="btn btn-teal btn-block btn-lg">Create account</button>
 </form>
 <div class="switch-line">Already have an account? <b><a asp-controller="Account" asp-action="Login" style="color:var(--teal);">Sign in</a></b></div>
-

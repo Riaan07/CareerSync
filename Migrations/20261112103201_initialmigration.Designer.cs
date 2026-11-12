@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CareerSync.Migrations
 {
     [DbContext(typeof(CareerSyncDbContext))]
-    [Migration("20261105213139_initialmigration")]
+    [Migration("20261112103201_initialmigration")]
     partial class initialmigration
     {
         /// <inheritdoc />
@@ -189,6 +189,59 @@ namespace CareerSync.Migrations
                     b.ToTable("JobDescriptions");
                 });
 
+            modelBuilder.Entity("CareerSync.Models.JobPosting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUrl")
+                        .HasMaxLength(1500)
+                        .HasColumnType("nvarchar(1500)");
+
+                    b.Property<DateTime?>("ClosingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int>("CreatedByAdminId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmploymentType")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<DateTime>("PostedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsActive", "PostedAt");
+
+                    b.ToTable("JobPostings");
+                });
+
             modelBuilder.Entity("CareerSync.Models.LearningResource", b =>
                 {
                     b.Property<int>("Id")
@@ -241,6 +294,9 @@ namespace CareerSync.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("JobDescriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobPostingId")
                         .HasColumnType("int");
 
                     b.Property<string>("MatchedSkills")
@@ -347,6 +403,45 @@ namespace CareerSync.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("CareerSync.Models.SavedJob", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationStatus")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<DateTime?>("AppliedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JobPostingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("SavedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobPostingId");
+
+                    b.HasIndex("AppUserId", "JobPostingId")
+                        .IsUnique();
+
+                    b.ToTable("SavedJobs");
+                });
+
             modelBuilder.Entity("CareerSync.Models.SkillDictionaryTerm", b =>
                 {
                     b.Property<int>("Id")
@@ -364,6 +459,21 @@ namespace CareerSync.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SkillDictionaryTerms");
+                });
+
+            modelBuilder.Entity("CareerSync.Models.SavedJob", b =>
+                {
+                    b.HasOne("CareerSync.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CareerSync.Models.JobPosting", null)
+                        .WithMany()
+                        .HasForeignKey("JobPostingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

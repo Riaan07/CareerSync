@@ -98,7 +98,6 @@ public class JobBoardController : Controller
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(JobPosting input)
     {
-        // Metadata is set server-side; do not bind over existing ownership or timestamps.
         ModelState.Remove(nameof(JobPosting.CreatedByAdminId));
         if (!ModelState.IsValid) return View(input);
         if (input.ClosingDate is DateTime date && date < DateTime.UtcNow.Date)
