@@ -6,6 +6,7 @@ namespace CareerSync.Models
     {
         public int Id { get; set; }
         public int CVId { get; set; }
+        public int JobPostingId { get; set; }
         public int JobDescriptionId { get; set; }
         public int OverallScore { get; set; }
         public int TechnicalSkillsScore { get; set; }

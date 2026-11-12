@@ -19,6 +19,7 @@
 
     public class GraduateMatchRow
     {
+        public int MatchResultId { get; set; }
         public string JobTitle { get; set; } = string.Empty;
         public string Company { get; set; } = string.Empty;
         public DateTime Date { get; set; }

@@ -1,1 +1,36 @@
-﻿
+﻿@model List<CareerSync.Models.CV>
+@{
+    ViewData["Title"] = "My saved CVs"; ViewData["PageTitle"] = "My saved CVs"; ViewData["Active"] = "CvLibrary"; Layout = "_AppUserLayout";
+}
+@if (ViewData["StatusMessage"] is string message)
+{
+    <div class="status-banner">@message</div>
+}
+<div class="card" style="padding:24px; margin-bottom:20px;">
+    <h3>Add another CV</h3>
+    <form asp-controller="AppUser" asp-action="SaveCv" method="post" enctype="multipart/form-data">
+        <div class="field"><label>CV name (optional)</label><input name="cvName" maxlength="150" placeholder="e.g. Software Developer CV" /></div>
+        <div class="field"><label>Upload CV (PDF or TXT)</label><input name="cvFile" type="file" accept=".pdf,.txt" /></div>
+        <div class="field"><label>Or paste CV text</label><textarea name="pastedText" rows="5"></textarea></div>
+        <button class="btn btn-primary" type="submit">Save CV</button>
+    </form>
+</div>
+<div class="card" style="padding:24px;">
+    <h3>Saved CVs (@Model.Count)</h3>
+    @if (!Model.Any())
+    {
+        <p>No CVs saved yet. Upload your first CV above.</p>
+    }
+    @foreach (var cv in Model)
+    {
+        <div style="padding:14px 0;border-bottom:1px solid #ddd;">
+            <strong>@cv.FileName</strong> <span class="meta">— @cv.UploadedAt.ToString("dd MMM yyyy")</span><br />
+            <span class="meta">@cv.ExtractedSkills.Count skills detected</span>
+            <form asp-controller="AppUser" asp-action="DeleteSavedCv" method="post" style="display:inline-block;margin-left:12px;" onsubmit="return confirm('Delete this CV and all its match results?');">
+                <input type="hidden" name="id" value="@cv.Id" /><button class="btn btn-sm" type="submit">Delete</button>
+            </form>
+        </div>
+    }
+    <p style="margin-top:18px;"><a class="btn btn-primary" asp-controller="JobBoard" asp-action="Index">Select CV and browse jobs</a></p>
+</div>
+

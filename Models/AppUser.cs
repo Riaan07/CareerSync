@@ -1,5 +1,4 @@
-﻿using CareerSync.Models;
-using CareerSync.Models.Enums;
+﻿using CareerSync.Models.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CareerSync.Models;

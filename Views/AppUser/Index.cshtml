@@ -108,7 +108,7 @@
 <div class="dash-grid">
     <div>
         <div class="card card-accent" style="margin-bottom:20px;">
-           @*  <div class="card-head">
+            <div class="card-head">
                 <div>
                     <h3>Latest match</h3>
                     <div class="meta">Analysed @(Model.LatestMatch != null ? Model.LatestMatch.GeneratedAt.ToString("d MMM") : "—")</div>
@@ -120,7 +120,7 @@
                         <a class="btn-text" asp-controller="AppUser" asp-action="MatchDetail" asp-route-id="@Model.LatestMatch.Id">Details →</a>
                     </div>
                 }
-            </div> *@
+            </div>
 
             @if (Model.LatestMatch != null)
             {
@@ -140,7 +140,7 @@
                     </div>
                 </div>
 
-               @*  <div class="bar-row">
+                <div class="bar-row">
                     <div class="bar-top"><span>Technical skills</span><span class="mono">@Model.LatestMatch.TechnicalSkillsScore%</span></div>
                     <div class="bar-track"><div class="bar-fill" style="width:@(Model.LatestMatch.TechnicalSkillsScore)%;"></div></div>
                 </div>
@@ -151,9 +151,9 @@
                 <div class="bar-row">
                     <div class="bar-top"><span>Qualifications</span><span class="mono">@Model.LatestMatch.QualificationsScore%</span></div>
                     <div class="bar-track"><div class="bar-fill" style="width:@(Model.LatestMatch.QualificationsScore)%;"></div></div>
-                </div> *@
+                </div>
 
-               @*  <div style="margin-top:20px;">
+                <div style="margin-top:20px;">
                     <div class="meta" style="margin-bottom:10px; font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:.06em; color:var(--slate-light);">SKILLS DETECTED</div>
                     <div class="chip-wrap">
                         @foreach (var skill in Model.LatestMatch.MatchedSkills)
@@ -165,7 +165,7 @@
                             <span class="chip chip-gap">@gap — gap</span>
                         }
                     </div>
-                </div> *@
+                </div>
             }
             else
             {
@@ -218,7 +218,7 @@
             {
                 @foreach (var resource in Model.RecommendedResources)
                 {
-                   @*  var isCert = resource.Type == LearningResourceType.Certification;
+                    var isCert = resource.Type == LearningResourceType.Certification;
                     <div class="learn-item">
                         <div class="learn-ic" style="@(isCert ? "background:rgba(242,163,64,0.16);" : "")">
                             @if (isCert)
@@ -240,7 +240,7 @@
                             <div class="meta">@resource.Provider &middot; @resource.DurationHours hrs</div>
                         </div>
                         <a class="go" href="@resource.Url" target="_blank" rel="noopener">Start →</a>
-                    </div> *@
+                    </div>
                 }
             }
             else
@@ -255,4 +255,3 @@
         </div>
     </div>
 </div>
-
